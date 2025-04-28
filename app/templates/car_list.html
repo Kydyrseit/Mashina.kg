@@ -1,0 +1,43 @@
+<!-- app/templates/app/car_list.html -->
+<h1>Список автомобилей</h1>
+
+<form method="get">
+    <input type="text" name="brand" placeholder="Марка">
+    <input type="text" name="year" placeholder="Год">
+    <input type="number" name="max_price" placeholder="Макс. цена">
+    <select name="sort">
+        <option value="price">По цене</option>
+        <option value="-price">По убыванию цены</option>
+        <option value="year">По году</option>
+        <option value="-year">По убыванию года</option>
+    </select>
+    <button type="submit">Фильтровать</button>
+</form>
+
+<ul>
+    {% for car in page_obj %}
+        <li>
+            <a href="{% url 'car_detail' car.pk %}">
+                {{ car.brand }} {{ car.model }} ({{ car.year }}) - {{ car.price }} сум
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>

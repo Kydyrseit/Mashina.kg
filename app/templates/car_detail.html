@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ car.brand }} {{ car.model }} ({{ car.year }})</h2>
+<p><strong>Цена:</strong> {{ car.price }} сом</p>
+<p><strong>Описание:</strong> {{ car.description }}</p>
+<p><strong>Создано:</strong> {{ car.created_at }}</p>
+
+<a href="{% url 'edit_car' car.pk %}" class="btn btn-warning">Редактировать</a>
+<a href="{% url 'delete_car' car.pk %}" class="btn btn-danger">Удалить</a>
+<a href="{% url 'car_list' %}" class="btn btn-secondary">Назад к списку</a>
+{% endblock %}
