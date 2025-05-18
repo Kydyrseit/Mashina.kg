@@ -1,9 +1,10 @@
-# app/Views/car_views.py
+# app/api_views/car_views.py
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from app.models import Car
 from .serializers import CarSerializer
 from rest_framework.decorators import api_view
+from rest_framework import serializers
+from app.models import Car
 
 
 
@@ -15,6 +16,12 @@ class CarViewSet(viewsets.ModelViewSet):
 
 # Функция для добавления нового автомобиля
 from rest_framework.views import APIView
+
+class CarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Car
+        fields = '__all__'
+
 
 @api_view(['POST'])
 def add_car(request):
