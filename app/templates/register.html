@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация</title>
+</head>
+<body>
+  <h2>Регистрация</h2>
+  <form id="register-form">
+    <input type="text" name="username" placeholder="Имя пользователя" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="password" name="password" placeholder="Пароль" required><br>
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+  <div id="register-response"></div>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      // Преобразуем FormData в обычный объект:
+      const data = Object.fromEntries(formData.entries());
+
+      fetch('/api/register/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        document.getElementById('register-response').innerText = JSON.stringify(result);
+      })
+      .catch(error => console.error('Ошибка:', error));
+    });
+  </script>
+</body>
+</html>

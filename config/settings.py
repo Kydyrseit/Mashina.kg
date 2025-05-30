@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 
 
+
 # Загружаем переменные из файла .env, который находится в той же директории, что и manage.py
 load_dotenv()
 
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Путь к директории шаблонов
+        'DIRS': [BASE_DIR / 'app' / 'templates'],  # Путь к директории шаблонов
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -167,6 +168,23 @@ DEFAULT_EXCEPTION_REPORTER = 'django.views.debug.ExceptionReporter'
 DEFAULT_EXCEPTION_REPORTER_FILTER = 'django.views.debug.SafeExceptionReporterFilter'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+
+REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += (
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+)
+
+
+
+
+
 # CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
@@ -174,4 +192,5 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
 

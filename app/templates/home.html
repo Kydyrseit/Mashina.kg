@@ -1,10 +1,191 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Mashina.kg — Главная</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Базовая стилизация */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #FFF;
+            padding: 10px 20px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #FFF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        main {
+            padding: 20px;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #FFF;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+        }
+        /* Стилизация модальных окон */
+        .modal {
+            display: none; /* По умолчанию скрыто */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* Полупрозрачный фон */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 4px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mashina.kg</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'car_list' %}">Список машин</a></li>
+                <li><a href="{% url 'add_car' %}">Добавить машину</a></li>
+                <li><a id="openRegisterModal">Регистрация</a></li>
+                <li><a id="openLoginModal">Вход</a></li>
+            </ul>
+        </nav>
+    </header>
 
-{% block content %}
-    <div class="text-center">
-        <h2>Добро пожаловать на Mashina.kg!</h2>
-        <p class="lead">Тут вы можете добавлять и просматривать автомобили. Приятного использования!</p>
-        <a href="{% url 'add_car' %}" class="btn btn-primary btn-lg">Добавить машину</a>
-        <a href="{% url 'car_list' %}" class="btn btn-info btn-lg">Посмотреть машины</a>
+    <main>
+        <section class="welcome">
+            <h2>Добро пожаловать на Mashina.kg!</h2>
+            <p>Тут вы можете добавлять и просматривать автомобили.</p>
+            <p>Наш сервис поможет вам найти автомобиль вашей мечты. Добавляйте машины, делитесь ими с другими пользователями.</p>
+        </section>
+        <section class="actions">
+            <a href="{% url 'add_car' %}" class="btn">Добавить машину</a>
+            <a href="{% url 'car_list' %}" class="btn">Посмотреть машины</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mashina.kg</p>
+    </footer>
+
+    <!-- Модальное окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegisterModal">&times;</span>
+            <h2>Регистрация</h2>
+            <form action="{% url 'register_page' %}" method="post">
+                {% csrf_token %}
+                <label for="id_username">Имя пользователя:</label><br>
+                <input type="text" name="username" id="id_username" required><br><br>
+                <label for="id_email">Email:</label><br>
+                <input type="email" name="email" id="id_email" required><br><br>
+                <label for="id_password">Пароль:</label><br>
+                <input type="password" name="password" id="id_password" required><br><br>
+                <button type="submit" class="btn">Зарегистрироваться</button>
+            </form>
+        </div>
     </div>
-{% endblock %}
+
+    <!-- Модальное окно для входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <h2>Вход</h2>
+            <form action="{% url 'login_page' %}" method="post">
+                {% csrf_token %}
+                <label for="login_username">Имя пользователя:</label><br>
+                <input type="text" name="username" id="login_username" required><br><br>
+                <label for="login_password">Пароль:</label><br>
+                <input type="password" name="password" id="login_password" required><br><br>
+                <button type="submit" class="btn">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Получаем модальные окна и элементы управления
+        var registerModal = document.getElementById("registerModal");
+        var openRegisterModal = document.getElementById("openRegisterModal");
+        var closeRegisterModal = document.getElementById("closeRegisterModal");
+
+        var loginModal = document.getElementById("loginModal");
+        var openLoginModal = document.getElementById("openLoginModal");
+        var closeLoginModal = document.getElementById("closeLoginModal");
+
+        // Открытие модального окна регистрации
+        openRegisterModal.onclick = function() {
+            registerModal.style.display = "block";
+        }
+        // Закрытие модального окна регистрации
+        closeRegisterModal.onclick = function() {
+            registerModal.style.display = "none";
+        }
+
+        // Открытие модального окна входа
+        openLoginModal.onclick = function() {
+            loginModal.style.display = "block";
+        }
+        // Закрытие модального окна входа
+        closeLoginModal.onclick = function() {
+            loginModal.style.display = "none";
+        }
+
+        // Закрытие модальных окон по клику вне их области
+        window.onclick = function(event) {
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
