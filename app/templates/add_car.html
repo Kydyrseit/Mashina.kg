@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="my-4">Добавить новую машину</h1>
+
+<!-- Форма добавления машины -->
+<form method="post" class="mt-4">
+    {% csrf_token %}
+
+
+
+    <!-- Поля формы -->
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="{{ form.brand.id_for_label }}">Марка</label>
+                {{ form.brand }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="{{ form.model.id_for_label }}">Модель</label>
+                {{ form.model }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="{{ form.year.id_for_label }}">Год выпуска</label>
+                {{ form.year }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Цена</label>
+                {{ form.price }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Описание</label>
+                {{ form.description }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопки отправки формы -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Добавить</button>
+        <a href="{% url 'car_list' %}" class="btn btn-secondary">Вернуться к списку</a>
+    </div>
+</form>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить автомобиль</button>
+</form>
+
+{% endblock %}

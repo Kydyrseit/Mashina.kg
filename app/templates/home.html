@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>Добро пожаловать на Mashina.kg!</h2>
+        <p class="lead">Тут вы можете добавлять и просматривать автомобили. Приятного использования!</p>
+        <a href="{% url 'add_car' %}" class="btn btn-primary btn-lg">Добавить машину</a>
+        <a href="{% url 'car_list' %}" class="btn btn-info btn-lg">Посмотреть машины</a>
+    </div>
+{% endblock %}
