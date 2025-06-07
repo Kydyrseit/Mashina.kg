@@ -1,0 +1,66 @@
+.category-bar {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.category-bar .nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.category-item {
+  position: relative;
+}
+
+.category-item .nav-link,
+.category-item .dropdown-toggle {
+  font-weight: 500;
+  padding: 6px 14px;
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.category-item .nav-link:hover,
+.category-item .dropdown-toggle:hover {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+/* Скрыто по умолчанию */
+.category-item .dropdown-menu {
+  display: none;
+  flex-wrap: wrap;
+  min-width: 300px;
+  max-width: 600px;
+  margin-top: 8px;
+  padding: 10px;
+  gap: 8px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-size: 14px;
+  z-index: 1000;
+}
+
+/* Показываем, когда Bootstrap добавит класс .show */
+.category-item .dropdown-menu.show {
+  display: flex;
+}
+
+.category-item .dropdown-item {
+  flex: 1 1 auto;
+  min-width: 120px;
+  white-space: normal;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.category-item .dropdown-item:hover {
+  background-color: #f8f9fa;
+}

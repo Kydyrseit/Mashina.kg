@@ -1,0 +1,40 @@
+.filter-search-container {
+  background-color: #f9f9f9;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 30px auto;
+  max-width: fit-content; /* Чтобы ширина была только под контент */
+}
+
+/* Вся форма — одна строка без переносов */
+.filter-search-container form {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Стили для input'ов */
+.filter-search-container input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  width: 150px;
+  white-space: nowrap;
+}
+
+/* Стиль кнопки */
+.filter-search-container button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filter-search-container button:hover {
+  background-color: #0056b3;
+}
