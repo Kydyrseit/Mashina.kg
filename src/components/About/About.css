@@ -1,0 +1,67 @@
+.about-page {
+  padding: 40px 0;
+}
+
+.about-page h1 {
+  color: #333;
+  font-weight: 600;
+}
+
+.about-page h2 {
+  color: #007bff;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  height: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card .card-title {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.advantages-list {
+  list-style: none;
+  padding: 0;
+}
+
+.advantages-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  color: #666;
+}
+
+.advantages-list li:last-child {
+  border-bottom: none;
+}
+
+.advantages-list li:before {
+  content: "✓";
+  color: #007bff;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 20px 0;
+  }
+  
+  .about-page h1 {
+    font-size: 2rem;
+  }
+  
+  .about-page h2 {
+    font-size: 1.5rem;
+  }
+} 
